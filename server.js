@@ -5,7 +5,7 @@ import mongoose from "mongoose"
 import  errorHandler  from "./middleware/errorhandler.js"
 import signatureRouter from "./routes/SignatureRoutes.js"
 import clerkWebhook from './routes/clerkWebhook.js'
-
+import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 dotenv.config()
 const connectDB = async ()=>{
     try{
@@ -24,11 +24,15 @@ const PORT = process.env.PORT || 8000
 
 //so that backend is able to talk to the frontend
 
-app.use(cors())
-app.use("/api/webhooks", express.raw({ type: "application/json" }));
+const allowedOrigins = ['http://localhost:3000',]
+app.use(cors({
+    origin: allowedOrigins, 
+    credentials: true, 
+  }))
 app.use(express.json())
-app.use('/api/signature',signatureRouter)
-app.use("/api/webhooks", clerkWebhook);
+app.use("/api/signature", ClerkExpressRequireAuth(), signatureRouter);
+app.use("/api/webhooks", express.raw({ type: "application/json" }), clerkWebhook);
+
 app.use(errorHandler)
 app.listen(PORT,()=>{
     console.log('Server Running on port: ',PORT)

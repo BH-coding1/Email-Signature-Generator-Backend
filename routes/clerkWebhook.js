@@ -52,6 +52,7 @@ router.post("/clerk", async (req, res) => {
         clerkUserId: id,
         email: email_addresses?.[0]?.email_address || `${id}@noemail.clerk`,
         firstName: first_name || "",
+        
         lastName: last_name || "",
       });
 
