@@ -71,13 +71,16 @@ router.put("/edit/:id", async (req, res, next) => {
     // we also have to spread the data so it goes to the correct schemas
     const updatedSignature = await signatureSchema.findOneAndUpdate(
       { _id: req.params.id, user: req.auth.userId },
+      { ...req.body },
       { new: true },
-      { ...req.body }
+      
     );
     if (!updatedSignature) {
       return res.status(404).json({ message: "Failed to edit signature" });
     }
+    
     res.status(200).json(updatedSignature);
+    console.log('signature updated',updatedSignature)
   } catch (err) {
     console.error(err);
     next(err);
