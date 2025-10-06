@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 8000
 
 //so that backend is able to talk to the frontend
 
-const allowedOrigins = ['http://localhost:3000','https://email-signature-generator-backend.onrender.com']
+const allowedOrigins = ['http://localhost:3000',]
 app.use(cors({
     origin: allowedOrigins, 
     credentials: true, 
