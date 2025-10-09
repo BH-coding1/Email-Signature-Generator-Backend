@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 8000
 
 //so that backend is able to talk to the frontend
 
-const allowedOrigins = ['https://mailgen-oykm7rfd4-bh-coding1s-projects.vercel.app','https://mailgen-eta.vercel.app']
+const allowedOrigins = ['https://mailgen-oykm7rfd4-bh-coding1s-projects.vercel.app','http://localhost:300','https://mailgen-eta.vercel.app']
 app.use(cors({
     origin: allowedOrigins, 
     credentials: true, 
